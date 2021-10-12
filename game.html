@@ -13,7 +13,24 @@
     </header>
     <body>
         <!-- Canvas is a placeholder for the image gallery - please keep the id to be gameBoard so that the styles still apply -->
-      <canvas id="gameBoard" width="1000" height="400"> </canvas>
+      <canvas id="gameBoard" width="1000" height="400"> 
+          <script>
+              const canvas = document.getElementById("gameBoard")
+              const ctx = canvas.getContext("2d")
+              const cu = new Image()
+              const rover = new Image()
+              cu.src = "./cardImages/boulder.jpg"
+              rover.src = "./cardImages/rover.jpg"
+              cu.onload = () => {
+                  ctx.drawImage(cu, 0, 0, 100, 100)
+                  ctx.drawImage(cu, 100, 100, 100, 100)
+              }
+              rover.onload = () => {
+                  ctx.drawImage(rover, 100, 0, 100, 100)
+                  ctx.drawImage(rover, 0, 100, 100, 100)
+              }
+          </script>
+      </canvas>
         <br>
         <section id = "strikes">
         <span id = "strikeMessage">Strikes:</span>
