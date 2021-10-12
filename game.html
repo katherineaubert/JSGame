@@ -5,16 +5,24 @@
         <title>Mines Memory</title>
 	    <meta charset="UTF-8">
 	    <meta name="author" content="Daniel McGarey">
+      <link rel="stylesheet" href="game.css">
     </head>
     <!-- Header section to control the title of the game, and anything in the upper region we would like to display to the user-->
     <header>
-        <h1>Welcome to Mines Memory!</h1>
+        <h1 id = "title">Mines Memory</h1>
     </header>
     <body>
-        <!-- Body will potentially contain a Canvas element to display all of our images -->
-        <span>This is how many strike you have left!</span>
-        <span>This is how many pairs you have matched!</span>
-    </body>
+        <!-- Canvas is a placeholder for the image gallery - please keep the id to be gameBoard so that the styles still apply -->
+      <canvas id="gameBoard" width="1000" height="400"> </canvas>
+        <br>
+        <section id = "strikes">
+        <span id = "strikeMessage">Strikes:</span>
+        <p id = "strikeCount"> 2 </p> <!-- To be filled in with jQuery as the user gets more strikes -->
+      </section>
+      <section id = "pairsMatched"
+        <span id = "pairsMessage">Pairs Matched: </span>
+        <p id = "pairsCount"> 5 </p> <!-- To be modified with jQuery as the user gets more pairs matched -->
+      </section>
     <footer>
         <h3>Created by Eli, Jordan, Katherine, and Daniel</h3>
     </footer>
