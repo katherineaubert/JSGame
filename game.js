@@ -22,7 +22,7 @@ var array = [cu,rover,thomas,stratton,M,elm,CO209,csu,mesa,rec,cu,rover,thomas,s
 var imageLocations = [50,0,50,100,50,200,50,300,250,0,250,100,250,200,250,300,450,0,450,100,450,200,450,300,650,0,650,100,650,200,650,300,850,0,850,100,850,200,850,300];
 shuffle(array);
 shuffle(array);
-
+var images = [];
 
 function cardLocation(name,x,y){
     this.name = name;
@@ -35,6 +35,7 @@ window.addEventListener('load',function(){
     var count = 0;
     for(let i = 0; i < array.length; i++){
         ctx.drawImage(array[i],imageLocations[count],imageLocations[count+1],100,100);
+        images.push(new cardLocation(array[i].id,imageLocations[count],imageLocations[count+1]));
         count += 2;
     }
 });
@@ -48,12 +49,21 @@ function checkClicks(){
         }
     }
 }
+//checks what card is clicked based on x and y values of user mouse click
+function findClickedCard(xClick,yClick){
+    for(let i = 0; i < images.length; i++){
+        if(xClick >= images[i].x && xClick <= (images[i].x+100) && yClick >= images[i].y && yClick <= (images[i].y+100)){
+            console.log(images[i].name + " Clicked");
+        }
+    }
+}
 
 function getMousePosition(canvas, event) {
     let rect = canvas.getBoundingClientRect();
     let x = event.clientX - rect.left; //subtract event x's position from bounding rectangle's x position
     let y = event.clientY - rect.top; //subtract event y's position from bounding rectangle's y position
-    console.log("Coordinate x: " + x + " Coordinate y: " + y);
+    findClickedCard(x,y);
+    //console.log("Coordinate x: " + x + " Coordinate y: " + y);
 }
 
 let canvasElem = document.querySelector("canvas");
