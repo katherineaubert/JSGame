@@ -20,6 +20,9 @@ const mines = new Image();
 const rec_center = new Image();
 const stratton = new Image();
 const thomas = new Image();
+const mcoverup = new Image();
+mcoverup.src = "./cardImages/mcoverup.jpg";
+mcoverup.id = "mcoverup";
 boulder.src = "./cardImages/boulder.jpg";
 boulder.id = "boulder";
 rover.src = "./cardImages/rover.jpg";
@@ -53,18 +56,20 @@ shuffle(array);
 shuffle(array);
 var images = [];
 
-function cardLocation(name,x,y){
+function cardLocation(name,x,y,image){
     this.name = name;
     this.x = x;
     this.y = y;
+    this.image = image;
 }
 
 //on window load draw the images
 window.addEventListener('load',function(){
     var count = 0;
     for(let i = 0; i < array.length; i++){
-        ctx.drawImage(array[i],imageLocations[count],imageLocations[count+1],100,100);
-        images.push(new cardLocation(array[i].id,imageLocations[count],imageLocations[count+1]));
+        ctx.drawImage(mcoverup,imageLocations[count],imageLocations[count+1],100,100);
+        //ctx.drawImage(array[i],imageLocations[count],imageLocations[count+1],100,100);
+        images.push(new cardLocation(array[i].id,imageLocations[count],imageLocations[count+1],array[i]));
         count += 2;
     }
 });
@@ -82,7 +87,8 @@ function checkClicks(){
 function findClickedCard(xClick,yClick){
     for(let i = 0; i < images.length; i++){
         if(xClick >= images[i].x && xClick <= (images[i].x+100) && yClick >= images[i].y && yClick <= (images[i].y+100)){
-            //console.log(images[i].name + " Clicked");
+            console.log(images[i].name + " Clicked");
+            ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
             if(hasClicked == 1){
                 click1 = images[i].name; //if first card clicked then assign to click1
             }
