@@ -74,7 +74,7 @@ function checkClicks(){
         hasClicked = 0; //reset click counter to zero
         if(click1 == click2){ //if both cards match
             matched += 1;
-            $("pairsCount").text(matched);
+            document.getElementById("pairsCount").innerText = matched;
         }
     }
 }
@@ -82,7 +82,14 @@ function checkClicks(){
 function findClickedCard(xClick,yClick){
     for(let i = 0; i < images.length; i++){
         if(xClick >= images[i].x && xClick <= (images[i].x+100) && yClick >= images[i].y && yClick <= (images[i].y+100)){
-            console.log(images[i].name + " Clicked");
+            //console.log(images[i].name + " Clicked");
+            if(hasClicked == 1){
+                click1 = images[i].name; //if first card clicked then assign to click1
+            }
+            else{
+                click2 = images[i].name; //if second time clicking then assign to click2
+                checkClicks();
+            }
         }
     }
 }
@@ -91,6 +98,7 @@ function getMousePosition(canvas, event) {
     let rect = canvas.getBoundingClientRect();
     let x = event.clientX - rect.left; //subtract event x's position from bounding rectangle's x position
     let y = event.clientY - rect.top; //subtract event y's position from bounding rectangle's y position
+    hasClicked += 1;
     findClickedCard(x,y);
     //console.log("Coordinate x: " + x + " Coordinate y: " + y);
 }
@@ -99,7 +107,6 @@ let canvasElem = document.querySelector("canvas");
 
 canvasElem.addEventListener("mousedown", function(e){
     getMousePosition(canvasElem, e); //on mouseclick down get x and y coordinates
-    hasClicked += 1;
 });
 
 //randomize array of images
