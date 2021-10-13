@@ -7,7 +7,7 @@
 	    <meta name="author" content="Daniel McGarey">
         <link rel="stylesheet" href="game.css">
     </head>
-    <img id="cu" src = "cardImages/boulder.jpg" style="display: none;"></image>
+    <img id="cu" src = "cardImages/boulder.jpg" style = "display: none;"></image>
     <img id="rover" src = "cardImages/rover.jpg" style="display: none;"></image>
     <img id="thomas" src = "cardImages/thomas.jpg" style="display: none;"></image>
     <img id="stratton" src = "cardImages/stratton.jpg" style="display: none;"></image>
@@ -24,17 +24,23 @@
     </header>
     <body>
         <!-- Canvas is a placeholder for the image gallery - please keep the id to be gameBoard so that the styles still apply -->
-      <canvas id="gameBoard" width="1000" height="400"> 
+      <canvas id="gameBoard" width="1000" height="400">
         <script type="text/javascript" src="gallery.js"></script>
       </canvas>
         <br>
         <section id = "strikes">
-        <span id = "strikeMessage">Strikes:</span>
-        <p id = "strikeCount"> 2 </p> <!-- To be filled in with jQuery as the user gets more strikes -->
+        <p id = "strikeMessage">Strikes:</p>
+        <p id = "strikeCount"> 0 </p> <!-- To be filled in with jQuery as the user gets more strikes -->
       </section>
+      <section id = "instructions">
+        <p> Welcome to Mines Memory! </p>
+        <p> The objective of this game is to flip over all pairs of Mines cards without flipping over rival cards!</p>
+        <p> Should you flip over a rival card three times, OR match two rival cards, you lose the game!</p>
+      </section>
+
       <section id = "pairsMatched">
-        <span id = "pairsMessage">Pairs Matched: </span>
-        <p id = "pairsCount"> 5 </p> <!-- To be modified with jQuery as the user gets more pairs matched -->
+        <p id = "pairsMessage">Pairs Matched: </p>
+        <p id = "pairsCount"> 0 </p> <!-- To be modified with jQuery as the user gets more pairs matched -->
       </section>
     <footer>
         <h3>Created by Eli, Jordan, Katherine, and Daniel</h3>
