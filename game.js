@@ -1,11 +1,15 @@
 var clickX;
 var clickY;
 var hasClicked = 0;
+var clickEnabled = true;
 var click1 = "";
 var click2 = "";
 var matched = 0;
 const canvas = document.getElementById("gameBoard")
 const ctx = canvas.getContext("2d")
+var images = [];
+var cardsClicked = [];
+var cardsFound = [];
 //image variables and array of images and array of image locations
 const boulder = new Image();
 const rover = new Image();
@@ -49,12 +53,13 @@ stratton.src = "./cardImages/stratton.jpg";
 stratton.id = "stratton";
 thomas.src = "./cardImages/thomas.jpg";
 thomas.id = "thomas";
-
+//array of cards and of card locations on canvas
 var array = [boulder,rover,thomas,stratton,mines,bigM,elm,co209,csu,mesa,rec_center,football,mines,metro,mines,boulder,rover,thomas,stratton,bigM,elm,co209,csu,mesa,rec_center,football,metro,mines];
 var imageLocations =[25,0,25,100,25,200,25,300,168,0,168,100,168,200,168,300,311,0,311,100,311,200,311,300,454,0,454,100,454,200,454,300,597,0,597,100,597,200,597,300,740,0,740,100,740,200,740,300,883,0,883,100,883,200,883,300];
+//randomize array
 shuffle(array);
 shuffle(array);
-var images = [];
+
 
 function cardLocation(name,x,y,image){
     this.name = name;
@@ -68,18 +73,31 @@ window.addEventListener('load',function(){
     var count = 0;
     for(let i = 0; i < array.length; i++){
         ctx.drawImage(mcoverup,imageLocations[count],imageLocations[count+1],100,100);
-        //ctx.drawImage(array[i],imageLocations[count],imageLocations[count+1],100,100);
         images.push(new cardLocation(array[i].id,imageLocations[count],imageLocations[count+1],array[i]));
         count += 2;
     }
 });
 
 function checkClicks(){
-    if(hasClicked == 2){ //check if user has clicked two cards
+    if(cardsClicked.length == 2){ //check if user has clicked two cards
+        clickEnabled = false; //diable clicked while comparing cards
         hasClicked = 0; //reset click counter to zero
-        if(click1 == click2){ //if both cards match
+        if(cardsClicked[0].name == cardsClicked[1].name && (cardsClicked[0].x != cardsClicked[1].x || cardsClicked[0].y != cardsClicked[1].y)){ //if both cards match
             matched += 1;
             document.getElementById("pairsCount").innerText = matched;
+            // add cards to array of cards that have been matched
+            cardsFound.push(cardsClicked[0]);
+            cardsFound.push(cardsClicked[1]);
+            cardsClicked = [];
+            clickEnabled = true; // reenable clicking on cards
+        } else {
+            setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking 
+                ctx.drawImage(mcoverup,cardsClicked[0].x,cardsClicked[0].y,100,100);
+                ctx.drawImage(mcoverup,cardsClicked[1].x,cardsClicked[1].y,100,100);
+                cardsClicked = [];
+                clickEnabled = true; // reenable clicking on cards
+            },2000);
+            
         }
     }
 }
@@ -87,14 +105,18 @@ function checkClicks(){
 function findClickedCard(xClick,yClick){
     for(let i = 0; i < images.length; i++){
         if(xClick >= images[i].x && xClick <= (images[i].x+100) && yClick >= images[i].y && yClick <= (images[i].y+100)){
-            console.log(images[i].name + " Clicked");
-            ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
-            if(hasClicked == 1){
-                click1 = images[i].name; //if first card clicked then assign to click1
-            }
-            else{
-                click2 = images[i].name; //if second time clicking then assign to click2
-                checkClicks();
+            if(!cardsFound.includes(images[i]) && !cardsClicked.includes(images[i])){ // check card has been clicked already or matched already
+                if(hasClicked == 1){ // if this is first card clicked
+                    ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
+                    cardsClicked.push(images[i]);
+                }
+                else{ // 2 cards have been clicked so checkClicks();
+                    ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
+                    cardsClicked.push(images[i]);
+                    checkClicks();
+                }
+            } else {
+                hasClicked -= 1; // card has been matched or clicked already so dont include it
             }
         }
     }
@@ -112,7 +134,9 @@ function getMousePosition(canvas, event) {
 let canvasElem = document.querySelector("canvas");
 
 canvasElem.addEventListener("mousedown", function(e){
-    getMousePosition(canvasElem, e); //on mouseclick down get x and y coordinates
+    if(clickEnabled){ // check if able to click on card
+        getMousePosition(canvasElem, e); //on mouseclick down get x and y coordinates
+    }
 });
 
 //randomize array of images
