@@ -92,10 +92,14 @@ function checkClicks(){
         if(cardsClicked[0].name == cardsClicked[1].name && (cardsClicked[0].x != cardsClicked[1].x || cardsClicked[0].y != cardsClicked[1].y)){ //if both cards match
             // checks if they matched bad cards
             if(cardsClicked[0].name == "mesa" || cardsClicked[0].name == "csu" || cardsClicked[0].name == "metro" || cardsClicked[0].name == "boulder") {
-              alert("You matched two bad cards and have lost the game!");
+              alert("You matched two bad cards and have lost the game! Press OK to restart.");
+              document.location.reload(true);
             }
             matched += 1;
             document.getElementById("pairsCount").innerText = matched;
+            if(matched == 11) {
+              alert("Great job, you have won the game! Press OK to restart.");
+            }
             document.getElementById("strikeCount").innerText = strikes;
             // add cards to array of cards that have been matched
             cardsFound.push(cardsClicked[0]);
@@ -108,7 +112,8 @@ function checkClicks(){
           }
             document.getElementById("strikeCount").innerText = strikes;
             if(strikes ==5) {
-              alert("You have flipped over 3 rival cards in 3 different turns, and have lost the game.");
+              alert("You have flipped over 3 rival cards in 3 different turns, and have lost the game! Press OK to restart.");
+              document.location.reload(true);
             }
             setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking
                 ctx.drawImage(mcoverup,cardsClicked[0].x,cardsClicked[0].y,100,100);
