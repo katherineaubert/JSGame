@@ -5,6 +5,7 @@ var clickEnabled = true;
 var click1 = "";
 var click2 = "";
 var matched = 0;
+var strikes = 0;
 const canvas = document.getElementById("gameBoard")
 const ctx = canvas.getContext("2d")
 var images = [];
@@ -83,21 +84,33 @@ function checkClicks(){
         clickEnabled = false; //diable clicked while comparing cards
         hasClicked = 0; //reset click counter to zero
         if(cardsClicked[0].name == cardsClicked[1].name && (cardsClicked[0].x != cardsClicked[1].x || cardsClicked[0].y != cardsClicked[1].y)){ //if both cards match
+            // checks if they matched bad cards
+            if(cardsClicked[0].name == "mesa" || cardsClicked[0].name == "csu" || cardsClicked[0].name == "metro" || cardsClicked[0].name == "boulder") {
+              alert("You matched two bad cards and have lost the game!");
+            }
             matched += 1;
             document.getElementById("pairsCount").innerText = matched;
+            document.getElementById("strikeCount").innerText = strikes;
             // add cards to array of cards that have been matched
             cardsFound.push(cardsClicked[0]);
             cardsFound.push(cardsClicked[1]);
             cardsClicked = [];
             clickEnabled = true; // reenable clicking on cards
         } else {
-            setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking 
+          if(cardsClicked[0].name == "csu" || cardsClicked[0].name == "mesa" || cardsClicked[0].name == "metro" || cardsClicked[0].name == "boulder" || cardsClicked[1].name == "csu" || cardsClicked[1].name == "mesa" || cardsClicked[1].name == "metro" || cardsClicked[1].name == "boulder"){
+            strikes = strikes + 1; //increments the amount of strikes
+          }
+            document.getElementById("strikeCount").innerText = strikes;
+            if(strikes ==3) {
+              alert("You have flipped over 3 rival cards in 3 different turns, and have lost the game.");
+            }
+            setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking
                 ctx.drawImage(mcoverup,cardsClicked[0].x,cardsClicked[0].y,100,100);
                 ctx.drawImage(mcoverup,cardsClicked[1].x,cardsClicked[1].y,100,100);
                 cardsClicked = [];
                 clickEnabled = true; // reenable clicking on cards
             },2000);
-            
+
         }
     }
 }

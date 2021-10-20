@@ -82,4 +82,4 @@ window.onload = () => {
         ctx.drawImage(thomas, 600, 0, 100, 100)
         ctx.drawImage(thomas, 600, 100, 100, 100)
     }
-}   
+}
