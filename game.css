@@ -26,9 +26,7 @@ h1 {
 }
 div {
   display: grid;
-  padding-left: 100px;
-  padding-right: 200px;
-  grid-template-columns: auto auto;
+  grid-template-columns: 250px 250px;
   grid-template-rows: auto ;
   grid-gap: 0;
   width: 800px;
@@ -55,8 +53,8 @@ div {
   position: absolute;
   padding-left: 5px;
   padding-right: 5px;
-  top: 495px;
-  right: 129px;
+  top: 500px;
+  left: 724px;
   width: 400px;
   height: 120px;
   font-size: 0.75em;
