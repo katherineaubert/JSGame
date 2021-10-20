@@ -27,6 +27,7 @@ const stratton = new Image();
 const thomas = new Image();
 const mcoverup = new Image();
 const marvin = new Image();
+const blaster = new Image();
 mcoverup.src = "./cardImages/mcoverup.jpg";
 mcoverup.id = "mcoverup";
 boulder.src = "./cardImages/boulder.jpg";
@@ -57,8 +58,10 @@ thomas.src = "./cardImages/thomas.jpg";
 thomas.id = "thomas";
 marvin.src = "./cardImages/marvin.jpeg";
 marvin.id = "marvin";
+blaster.src = "./cardImages/blaster.jpg";
+blaster.id = "blaster";
 //array of cards and of card locations on canvas
-var array = [boulder,rover,thomas,stratton,mines,bigM,elm,co209,csu,mesa,rec_center,football,mines,metro,mines,boulder,rover,thomas,stratton,bigM,elm,co209,csu,mesa,rec_center,football,metro,marvin];
+var array = [boulder,rover,thomas,stratton,mines,bigM,elm,co209,csu,blaster,rec_center,football,mines,metro,mines,boulder,rover,thomas,stratton,bigM,elm,co209,csu,mesa,rec_center,football,metro,marvin];
 var imageLocations =[25,0,25,100,25,200,25,300,168,0,168,100,168,200,168,300,311,0,311,100,311,200,311,300,454,0,454,100,454,200,454,300,597,0,597,100,597,200,597,300,740,0,740,100,740,200,740,300,883,0,883,100,883,200,883,300];
 //randomize array
 shuffle(array);
