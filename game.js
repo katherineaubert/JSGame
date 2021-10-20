@@ -12,22 +12,22 @@ var images = [];
 var cardsClicked = [];
 var cardsFound = [];
 //image variables and array of images and array of image locations
-const boulder = new Image();
-const rover = new Image();
-const co209 = new Image();
-const csu = new Image();
-const elm = new Image();
-const football = new Image();
-const bigM = new Image();
-const mesa = new Image();
-const metro = new Image();
-const mines = new Image();
-const rec_center = new Image();
-const stratton = new Image();
-const thomas = new Image();
-const mcoverup = new Image();
-const marvin = new Image();
-const blaster = new Image();
+const boulder = new Image(100,100);
+const rover = new Image(100,100);
+const co209 = new Image(100,100);
+const csu = new Image(100,100);
+const elm = new Image(100,100);
+const football = new Image(100,100);
+const bigM = new Image(100,100);
+const mesa = new Image(100,100);
+const metro = new Image(100,100);
+const mines = new Image(100,100);
+const rec_center = new Image(100,100);
+const stratton = new Image(100,100);
+const thomas = new Image(100,100);
+const mcoverup = new Image(100,100);
+const marvin = new Image(100,100);
+const blaster = new Image(100,100);
 mcoverup.src = "./cardImages/mcoverup.jpg";
 mcoverup.id = "mcoverup";
 boulder.src = "./cardImages/boulder.jpg";
@@ -66,6 +66,13 @@ var imageLocations =[25,0,25,100,25,200,25,300,168,0,168,100,168,200,168,300,311
 //randomize array
 shuffle(array);
 shuffle(array);
+var scaleX = 100;
+var scaleDirection = -1;
+var scaleDelta =10; // determines speed
+var PI2 = Math.PI*2;
+var cardX;
+var cardY;
+var flipCard;
 
 
 function cardLocation(name,x,y,image){
@@ -116,11 +123,23 @@ function checkClicks(){
               document.location.reload(true);
             }
             setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking
-                ctx.drawImage(mcoverup,cardsClicked[0].x,cardsClicked[0].y,100,100);
-                ctx.drawImage(mcoverup,cardsClicked[1].x,cardsClicked[1].y,100,100);
-                cardsClicked = [];
-                clickEnabled = true; // reenable clicking on cards
-            },2000);
+                flipCard = cardsClicked[0].image;
+                cardX = cardsClicked[0].x;
+                cardY = cardsClicked[0].y
+                scaleX = 100;
+                animate2();
+                //ctx.drawImage(mcoverup,cardsClicked[0].x,cardsClicked[0].y,100,100);
+                setTimeout(function(){
+                    flipCard = cardsClicked[1].image;
+                    cardX = cardsClicked[1].x;
+                    cardY = cardsClicked[1].y
+                    scaleX = 100;
+                    animate2();
+                    cardsClicked = [];
+                },750);
+                //ctx.drawImage(mcoverup,cardsClicked[1].x,cardsClicked[1].y,100,100);
+            },1000);
+
 
         }
     }
@@ -131,11 +150,21 @@ function findClickedCard(xClick,yClick){
         if(xClick >= images[i].x && xClick <= (images[i].x+100) && yClick >= images[i].y && yClick <= (images[i].y+100)){
             if(!cardsFound.includes(images[i]) && !cardsClicked.includes(images[i])){ // check card has been clicked already or matched already
                 if(hasClicked == 1){ // if this is first card clicked
-                    ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
+                    flipCard = images[i].image;
+                    cardX = images[i].x;
+                    cardY = images[i].y;
+                    scaleX = 100;
+                    animate();
+                    //ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
                     cardsClicked.push(images[i]);
                 }
                 else{ // 2 cards have been clicked so checkClicks();
-                    ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
+                    flipCard = images[i].image;
+                    cardX = images[i].x;
+                    cardY = images[i].y;
+                    scaleX = 100;
+                    animate();
+                    //ctx.drawImage(images[i].image,images[i].x,images[i].y,100,100);
                     cardsClicked.push(images[i]);
                     checkClicks();
                 }
@@ -173,3 +202,61 @@ function shuffle(array){
     }
     return array;
 }
+
+function flip(x,y,scaleX){
+    ctx.clearRect(x-43,y,150,100);
+    ctx.translate(x+23,y+50);
+    //ctx.rotate(angle);
+     ctx.scale(-scaleX,1);
+     if(scaleX>=0){
+         ctx.drawImage(mcoverup,-mcoverup.width/2,-mcoverup.height/2,180,100);
+     } else {
+         ctx.drawImage(flipCard,-flipCard.width/2,-flipCard.height/2,222,100);
+     } ctx.setTransform(1,0,0,1,0,0);
+ }
+ 
+ function animate (){
+     clickEnabled = false;
+     flip(cardX,cardY,(scaleX/200));
+     scaleX+=scaleDirection*scaleDelta;
+     if(scaleX<-100 || scaleX > 100){
+         scaleDirection*=-1;
+         scaleX+=scaleDirection*scaleDelta;
+     }
+     if(scaleX > -100){
+         window.setTimeout(function(){
+             window.requestAnimationFrame(animate);
+         },0.1);
+     } else if(cardsClicked.length < 2){
+         clickEnabled =true;
+     }
+ }
+
+ function flip2(x,y,scaleX){
+    ctx.clearRect(x-43,y,150,100);
+    ctx.translate(x+23,y+50);
+    //ctx.rotate(angle);
+     ctx.scale(-scaleX,1);
+     if(scaleX>=0){
+        ctx.drawImage(flipCard,-flipCard.width/2,-flipCard.height/2,180,100);
+     } else {
+        ctx.drawImage(mcoverup,-mcoverup.width/2,-mcoverup.height/2,222,100);
+     } ctx.setTransform(1,0,0,1,0,0);
+ }
+ 
+ function animate2 (){
+     clickEnabled = false;
+     flip2(cardX,cardY,(scaleX/200));
+     scaleX+=scaleDirection*scaleDelta;
+     if(scaleX<-100 || scaleX > 100){
+         scaleDirection*=-1;
+         scaleX+=scaleDirection*scaleDelta;
+     }
+     if(scaleX > -100){
+         window.setTimeout(function(){
+             window.requestAnimationFrame(animate2);
+         },0.1);
+     } else if(cardsClicked.length == 0){
+        clickEnabled = true;
+     }
+ }
