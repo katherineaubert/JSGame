@@ -26,6 +26,7 @@ const rec_center = new Image();
 const stratton = new Image();
 const thomas = new Image();
 const mcoverup = new Image();
+const marvin = new Image();
 mcoverup.src = "./cardImages/mcoverup.jpg";
 mcoverup.id = "mcoverup";
 boulder.src = "./cardImages/boulder.jpg";
