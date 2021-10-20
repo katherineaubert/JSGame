@@ -24,6 +24,16 @@ h1 {
   border: 3px solid #49640E;
   border-radius: 0px;
 }
+div {
+  display: grid;
+  padding-left: 100px;
+  padding-right: 200px;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto ;
+  grid-gap: 0;
+  width: 800px;
+}
+
 #strikeMessage, #pairsMessage {
   text-align: left;
   margin-left: 120px;
@@ -35,7 +45,7 @@ h1 {
   color: white;
   margin-top: 0px;
   margin-left: 120px;
-  width: 10%;
+  width: 40%;
   border: 1px solid black;
   border-radius: 50px;
   font-size: 2em;
