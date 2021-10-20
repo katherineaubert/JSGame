@@ -101,7 +101,7 @@ function checkClicks(){
             strikes = strikes + 1; //increments the amount of strikes
           }
             document.getElementById("strikeCount").innerText = strikes;
-            if(strikes ==3) {
+            if(strikes ==5) {
               alert("You have flipped over 3 rival cards in 3 different turns, and have lost the game.");
             }
             setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking
