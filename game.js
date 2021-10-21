@@ -118,8 +118,8 @@ function checkClicks(){
             strikes = strikes + 1; //increments the amount of strikes
           }
             document.getElementById("strikeCount").innerText = strikes;
-            if(strikes ==5) {
-              alert("You have flipped over 3 rival cards in 3 different turns, and have lost the game! Press OK to restart.");
+            if(strikes ==7) {
+              alert("You have flipped over 7 rival cards in 7 different turns, and have lost the game! Press OK to restart.");
               document.location.reload(true);
             }
             setTimeout(function(){ //after 2000 ms change the images back to background and reenable clicking
@@ -214,7 +214,7 @@ function flip(x,y,scaleX){
          ctx.drawImage(flipCard,-flipCard.width/2,-flipCard.height/2,222,100);
      } ctx.setTransform(1,0,0,1,0,0);
  }
- 
+
  function animate (){
      clickEnabled = false;
      flip(cardX,cardY,(scaleX/200));
@@ -243,7 +243,7 @@ function flip(x,y,scaleX){
         ctx.drawImage(mcoverup,-mcoverup.width/2,-mcoverup.height/2,222,100);
      } ctx.setTransform(1,0,0,1,0,0);
  }
- 
+
  function animate2 (){
      clickEnabled = false;
      flip2(cardX,cardY,(scaleX/200));
